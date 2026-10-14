@@ -1,14 +1,24 @@
 version: 2
 
 sources:
-  - name: olist_raw
-    description: "Raw Olist Brazilian E-Commerce data loaded from CSV files"
+  - name: raw
+    description: "Raw Olist data loaded from CSV files into DuckDB"
     tables:
-      - name: orders
+      - name: raw_orders
         description: "One row per order"
-      - name: customers
-        description: "One row per customer"
-      - name: order_items
+      - name: raw_order_items
         description: "One row per item within an order"
-      - name: payments
+      - name: raw_customers
+        description: "One row per customer"
+      - name: raw_products
+        description: "One row per product"
+      - name: raw_sellers
+        description: "One row per seller"
+      - name: raw_payments
         description: "One row per payment"
+      - name: raw_reviews
+        description: "One row per review"
+      - name: raw_geolocation
+        description: "One row per zip code geolocation record"
+      - name: raw_category_translation
+        description: "One row per product category with PT and EN names"
