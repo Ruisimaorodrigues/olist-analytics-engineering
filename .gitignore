@@ -1,0 +1,9 @@
+data/
+*.csv
+*.db
+*.duckdb
+logs/
+target/
+dbt_packages/
+__pycache__/
+.env

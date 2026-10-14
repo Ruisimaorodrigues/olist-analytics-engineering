@@ -1,0 +1,77 @@
+version: 2
+
+models:
+  - name: stg_orders
+    description: >
+      Staging model for orders. One row per order.
+      Cleans and renames columns from the raw Olist orders dataset.
+    columns:
+      - name: order_id
+        description: "Unique identifier for each order. Primary key."
+        tests:
+          - unique
+          - not_null
+      - name: customer_id
+        description: "Foreign key to stg_customers."
+        tests:
+          - not_null
+      - name: order_status
+        description: "Current lifecycle status of the order."
+        tests:
+          - not_null
+          - accepted_values:
+              values: ['delivered', 'shipped', 'canceled', 'invoiced', 'processing', 'created', 'approved', 'unavailable']
+      - name: ordered_at
+        description: "Timestamp when the order was placed."
+      - name: delivered_at
+        description: "Timestamp when the order was delivered. Null if not delivered."
+      - name: estimated_delivery_at
+        description: "Estimated delivery date provided at time of purchase."
+
+  - name: stg_customers
+    description: "Staging model for customers. One row per customer."
+    columns:
+      - name: customer_id
+        description: "Unique identifier for each customer. Primary key."
+        tests:
+          - unique
+          - not_null
+      - name: customer_state
+        description: "Brazilian state code where the customer is located."
+        tests:
+          - not_null
+
+  - name: stg_order_items
+    description: "Staging model for order items. One row per item within an order."
+    columns:
+      - name: order_id
+        tests:
+          - not_null
+      - name: order_item_id
+        tests:
+          - not_null
+      - name: price
+        tests:
+          - not_null
+          - positive_values
+
+  - name: stg_payments
+    description: "Staging model for payments. One row per payment."
+    columns:
+      - name: order_id
+        tests:
+          - not_null
+      - name: payment_value
+        tests:
+          - not_null
+          - positive_values
+  - name: stg_sellers
+    description: "Staging model for sellers. One row per seller."
+    columns:
+      - name: seller_id
+        tests:
+          - unique
+          - not_null
+      - name: seller_state
+        tests:
+          - not_null
