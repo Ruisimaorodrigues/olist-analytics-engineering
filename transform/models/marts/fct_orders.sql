@@ -21,3 +21,4 @@ select
     delivery_days,
     delivered_on_time
 from orders
+where order_status = 'delivered'
