@@ -27,7 +27,7 @@ payments as (
 )
 
 select
-     {{ dbt_utils.generate_surrogate_key(['o.order_id', 'o.customer_id']) }} as order_sk,
+     {{ dbt_utils.generate_surrogate_key(['o.order_id', 'o.customer_id']) }} as order_key,
     o.order_id,
     o.customer_id,
     o.order_status,
@@ -39,7 +39,12 @@ select
     oi.total_items_value,
     oi.total_freight_value,
     oi.total_items,
-    p.total_payment_value
+    p.total_payment_value,
+    {{ days_between('o.ordered_at', 'o.delivered_at') }} as delivery_days,
+    case
+        when o.delivered_at <= o.estimated_delivery_at then true
+        else false
+    end as delivered_on_time    
    
 from orders o
 left join customers c on o.customer_id = c.customer_id
