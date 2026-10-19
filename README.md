@@ -36,6 +36,10 @@ The project follows Kimball dimensional modeling with four fact tables and five 
 
 Full metric definitions and assumptions: [metric_definitions.md](transform/metric_definitions.md)
 
+## Dashboard
+
+![Power BI Dashboard](docs/dashboard_screenshot.png)
+
 ## How to Run
 
 **1. Install dependencies:**
